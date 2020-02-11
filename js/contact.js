@@ -93,6 +93,9 @@ db.collection('users').orderBy("Name").onSnapshot(doc =>{
 
     // document.querySelectorAll("tbody tr").forEach(item => item.remove())
     $(".ccc tr").remove()
+    m = 0;
+    f = 0;
+    o = 0;
     doc.forEach(item => { 
         let row = table.insertRow(-1)
         let firstCell = row.insertCell(0)
