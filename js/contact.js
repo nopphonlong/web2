@@ -1,11 +1,6 @@
 // index.js
 
 let e = false;
-let m = 0.0
-let f = 0.0
-let o = 0.0
-let count = 0.0
-
 let firebaseConfig = {
     apiKey: "AIzaSyAnlw9u9pZrZfwvg4xVHa75CDn16knG6nk",
     authDomain: "localhost",
@@ -16,7 +11,10 @@ firebase.initializeApp(firebaseConfig);
 let db = firebase.firestore();
 
 console.log('Hi');
-
+let m = 0.0
+let f = 0.0
+let o = 0.0
+let count = 0.0
 $('#save').click(()=> {
     e = false
     let first = document.getElementById("first").value;
@@ -26,8 +24,6 @@ $('#save').click(()=> {
     let detail = document.getElementById("detail").value;
 
     //checked validation
-
-
     if(!(first.match('^[a-zA-Z]{1,16}$')) || first == "") {
         console.log('F');
         e = true;
@@ -36,7 +32,6 @@ $('#save').click(()=> {
         document.querySelector('#fe').textContent = ""
 
     }
-
     if(!(last.match('^[a-zA-Z]{1,16}$')) || last == "") {
         console.log('L');
         e = true;
@@ -45,7 +40,6 @@ $('#save').click(()=> {
         document.querySelector('#le').textContent = ""
 
     }
-
     function validateEmail($email) {
         let emailReg = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z]{2,4})+$/;
         return emailReg.test( $email );
@@ -60,9 +54,6 @@ $('#save').click(()=> {
         document.querySelector('#ee').textContent = ""
 
     }
-
-
-
     if(e){
         console.log('error');
         document.querySelector('#se').textContent = "Please enter a valid Info."
@@ -75,25 +66,12 @@ $('#save').click(()=> {
     .add({
 
         Name: first + " " + last,
-        // LName: last,
         Gender: sex,
         Email: email,
         Detail: detail,
-        
-        // Name: $('#name').val(),
-        // Gender: $( "input:checked" ).val(),
-        // Email: $('#email').val(),
-        // Detail: $('#detail').val(),
     })
     .then(function(docRef) {
         console.log("Document written with ID: ", docRef.id);
-        
-        console.log(first);
-        console.log(last);
-        console.log(sex);
-        console.log(email);
-        console.log(detail);
-        
         $('#first').val('')
         $('#last').val('')
         $('input[id="male"]').prop('checked', true);
@@ -103,11 +81,7 @@ $('#save').click(()=> {
     .catch(function(error) {
         console.error("Error adding document: ", error);
     });
-
     }
-    
-    
-
 })
 
 
@@ -116,7 +90,7 @@ $('#save').click(()=> {
 
 db.collection('users').orderBy("Name").onSnapshot(doc =>{
     let table = $('.ccc')[0]
-    
+
     // document.querySelectorAll("tbody tr").forEach(item => item.remove())
     $(".ccc tr").remove()
     doc.forEach(item => { 
@@ -126,7 +100,6 @@ db.collection('users').orderBy("Name").onSnapshot(doc =>{
         let thirdCell = row.insertCell(2)
         let str = String(item.data().Email)
         let buff = ""
-        
         for(i=0;i<str.length;i++){
             if(i==0|| str[i]=='@'|| str[i]=='.'){
                 buff += str[i]
@@ -172,5 +145,4 @@ db.collection('users').orderBy("Name").onSnapshot(doc =>{
         $("#chartContainer").CanvasJSChart(options);
         console.log(m)
     })
-    // $('.textchange').text(secoundCell)
 })
